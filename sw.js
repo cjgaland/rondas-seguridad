@@ -1,10 +1,10 @@
 // ============================================================
-//  sw.js — Service Worker · Rondas de Seguridad Lite
+//  sw.js — Service Worker · Rondas de Seguridad
 //  Estrategia network-first con fallback a caché para uso offline.
 //  Al cambiar cualquier archivo, incrementa CACHE_NAME.
 // ============================================================
 
-const CACHE_NAME = "rondaslite-v1";
+const CACHE_NAME = "rondas-v1";
 
 const ASSETS = [
   "./",

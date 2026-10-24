@@ -1,5 +1,5 @@
 // ============================================================
-//  xlsx.js — Excel (.xlsx) real sin dependencias · Rondas de Seguridad Lite
+//  xlsx.js — Excel (.xlsx) real sin dependencias · Rondas de Seguridad
 //  Copiado de Auditorías (que lo copió de Indicadores) (skill app-xlsx-export: ZIP STORE + OOXML a mano).
 //  window.Xlsx en navegador y module.exports en Node (tests).
 // ============================================================

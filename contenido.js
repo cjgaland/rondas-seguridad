@@ -1,5 +1,5 @@
 // ============================================================
-//  contenido.js — Solo datos · Rondas de Seguridad Lite
+//  contenido.js — Solo datos · Rondas de Seguridad
 //  Aprende (5 temas), glosario, «Ponte a prueba» y ejemplos. HTML de confianza
 //  escrito a mano. Coherente con el capítulo 12 («Rondas de seguridad») de la
 //  Guía de Calidad y Seguridad del Paciente de los autores. Los ejemplos

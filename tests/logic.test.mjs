@@ -206,7 +206,7 @@ eq("Sanear no rompe el ejemplo", [rs.rondas.length, rs.acciones.length, Object.k
 
 // ---------- Intercambio ----------
 const pq = L.paqueteIntercambio([urg], "2026.01", HOY + "T10:00:00Z");
-eq("Formato y versión", [pq.formato, pq.version, pq.app], ["rondaslite-rondas", 1, "rondaslite"]);
+eq("Formato y versión", [pq.formato, pq.version, pq.app], ["rondas-seguridad", 1, "rondas"]);
 eq("Puntos calientes en el paquete", pq.unidades[0].puntosCalientes.map(p => [p.itemId, p.por, p.turno]), [["cui-08", "turno", "noche"]]);
 eq("Rondas con su cumplimiento", pq.unidades[0].rondas.slice(0, 3).map(r => r.cumplimiento), [86, 86, 86]);
 t("Acción vencida marcada", pq.unidades[0].acciones.find(a => /obligatorio/.test(a.que)).vencida === true);

@@ -13,11 +13,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=1" />
   <link rel="apple-touch-icon" href="icon-180.png?v=1" />
-  <title>Rondas de Seguridad Lite</title>
+  <title>Rondas de Seguridad</title>
   <script>
     // Tema antes del primer pintado (evita parpadeo): preferencia guardada o del sistema
     (function () {
-      var t = null; try { t = localStorage.getItem("rondaslite-tema"); } catch (e) {}
+      var t = null; try { t = localStorage.getItem("rondas-tema"); } catch (e) {}
       if (!t) t = (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "oscuro" : "claro";
       document.documentElement.setAttribute("data-tema", t);
     })();
@@ -33,7 +33,7 @@
       </span>
       <span>
         <span class="header-title">Rondas de Seguridad</span>
-        <span class="header-subtitle">Lite · para tu unidad</span>
+        <span class="header-subtitle">Para tu unidad</span>
       </span>
     </a>
     <div class="header-actions">
@@ -68,7 +68,7 @@
   <div class="modal-overlay" id="modal-bienvenida" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bienv-titulo">
       <div class="modal-header">
-        <h2 id="bienv-titulo">Te damos la bienvenida a Rondas de Seguridad Lite</h2>
+        <h2 id="bienv-titulo">Te damos la bienvenida a Rondas de Seguridad</h2>
         <p class="modal-sub">Ir a donde ocurre la atención, mirar y preguntar</p>
       </div>
       <div class="modal-body">
@@ -91,7 +91,7 @@
   <div class="modal-overlay" id="modal-acerca" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="acerca-titulo">
       <div class="modal-header">
-        <h2 id="acerca-titulo">Acerca de Rondas de Seguridad Lite</h2>
+        <h2 id="acerca-titulo">Acerca de Rondas de Seguridad</h2>
         <button class="icon-btn modal-close" id="btn-acerca-cerrar" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body">
@@ -147,7 +147,7 @@
   <div class="modal-overlay" id="modal-novedades" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="novedades-titulo">
       <div class="modal-header">
-        <h2 id="novedades-titulo">Rondas de Seguridad Lite se ha actualizado</h2>
+        <h2 id="novedades-titulo">Rondas de Seguridad se ha actualizado</h2>
         <p class="modal-sub" id="novedades-sub">Esto es lo nuevo</p>
       </div>
       <div class="modal-body" id="novedades-body"></div>

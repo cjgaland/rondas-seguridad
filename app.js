@@ -1,5 +1,5 @@
 // ============================================================
-//  app.js — UI y estado · Rondas de Seguridad Lite
+//  app.js — UI y estado · Rondas de Seguridad
 //  Las reglas viven en logic.js (funciones puras) y los textos didácticos y
 //  ejemplos en contenido.js. Aquí: datos en localStorage, enrutado por hash,
 //  inicio, unidades con su programa en 5 pasos, cada ronda en 5 pasos,
@@ -43,7 +43,7 @@
   const escribir = (k, v) => { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } };
 
   // ---------- Datos (solo en este dispositivo) ----------
-  const KEY_DATOS = "rondaslite-datos", KEY_INTERCAMBIO = "rondaslite-intercambio";
+  const KEY_DATOS = "rondas-datos", KEY_INTERCAMBIO = "rondas-intercambio";
   let datos = { unidades: [], ultimaCopia: null };
   (function cargar() {
     const crudo = leer(KEY_DATOS); if (!crudo) return;
@@ -64,7 +64,7 @@
   function guardar(inmediato) {
     clearTimeout(tGuardar);
     const fn = () => {
-      const ok = escribir(KEY_DATOS, JSON.stringify({ app: "rondaslite", v: L.VERSION_DATOS, ultimaCopia: datosUsuario.ultimaCopia, unidades: datosUsuario.unidades }));
+      const ok = escribir(KEY_DATOS, JSON.stringify({ app: "rondas", v: L.VERSION_DATOS, ultimaCopia: datosUsuario.ultimaCopia, unidades: datosUsuario.unidades }));
       // Paquete con forma fija para las otras apps (nunca lleva los ejemplos)
       if (ok) { try { escribir(KEY_INTERCAMBIO, JSON.stringify(L.paqueteIntercambio(datosUsuario.unidades, APP_VERSION, hoy()))); } catch (e) { /* */ } }
       if (!ok && !avisoSinEspacio) { avisoSinEspacio = true; toast("No se ha podido guardar en este navegador (¿modo privado o sin espacio?). Haz una copia de seguridad.", 6000); }
@@ -82,7 +82,7 @@
   const idea = html => box("idea", "Idea clave", `<p>${html}</p>`);
   const trampa = html => box("trampa", "Ojo, trampa", `<p>${html}</p>`);
   const practica = html => box("practica", "En la práctica", `<p>${html}</p>`);
-  const KEY_FACIL = "rondaslite-facil-abierto";
+  const KEY_FACIL = "rondas-facil-abierto";
   const facil = (html, titulo = "Explicado fácil") => `<details class="facil" data-recordar="1"${leer(KEY_FACIL) === "1" ? " open" : ""}><summary>${titulo}</summary><div class="facil-body">${html}</div></details>`;
   const avisoHtml = a => a.nivel === "nota" ? `<div class="note">ℹ ${esc(a.texto)}</div>` : a.nivel === "error" ? `<div class="aviso-error">✕ ${esc(a.texto)}</div>` : `<div class="warn">⚠ ${esc(a.texto)}</div>`;
 
@@ -130,7 +130,7 @@
       <span class="autor"><b>Rafael J. Romero de Castilla Gil</b> · Médico de Familia · Responsable del Área de Calidad y Seguridad del Paciente</span>
       <span class="autor-area">Área de Gestión Sanitaria Sur de Córdoba · Andalucía</span>
       <span class="autor-uso">De libre uso con fines docentes y divulgativos. No sustituye el criterio profesional.</span>
-      <span class="footer-version">Rondas de Seguridad Lite · versión ${APP_VERSION}</span>
+      <span class="footer-version">Rondas de Seguridad · versión ${APP_VERSION}</span>
     </footer>`;
   }
 
@@ -152,7 +152,7 @@
     const proximas = d.unidades.map(u => ({ u, r: L.rondasOrden(u).find(r => !r.cerrada) })).filter(x => x.r);
     view.innerHTML = `
       <section class="hero">
-        <h1 class="hero-t"><span>Rondas de Seguridad</span> Lite</h1>
+        <h1 class="hero-t"><span>Rondas de Seguridad</span></h1>
         <p class="hero-p">Monta las <b>rondas de seguridad de tu unidad</b> y síguelas: elige las preguntas de un banco, haz la ronda a pie de cama, <b>acuerda acciones</b> con responsable y fecha, y comprueba en la siguiente ronda que se han cumplido.</p>
         <div class="hero-btns">
           <a class="btn btn--primary btn--grande" href="#/unidad/nueva">+ Nuevo programa de rondas</a>
@@ -603,7 +603,7 @@
   function descargarWord(cual) {
     try {
       const doc = DOCS[cual](actual, rondaActual);
-      const bytes = window.Docx.construirDocx(Object.assign({ pie: doc.titulo + " · Generado con la app Rondas de Seguridad Lite" }, doc));
+      const bytes = window.Docx.construirDocx(Object.assign({ pie: doc.titulo + " · Generado con la app Rondas de Seguridad" }, doc));
       compartirOBajar(new Blob([bytes], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }), `${doc.titulo.replace(/[\\/:*?"<>|%]/g, "-").slice(0, 90).trim()} ${fechaArchivo()}.docx`, "Word descargado. Ábrelo con Word, Pages o LibreOffice y ajústalo a tu gusto.");
     } catch (e) { toast("No se ha podido crear el Word.", 4000); }
   }
@@ -875,8 +875,8 @@
 
   // ---------- Copia de seguridad e importar ----------
   async function copiaSeguridad() {
-    const contenido = JSON.stringify({ app: "rondaslite", v: L.VERSION_DATOS, exportado: hoy(), unidades: datosUsuario.unidades, intercambio: L.paqueteIntercambio(datosUsuario.unidades, APP_VERSION, hoy()) }, null, 1);
-    const nombre = `Rondas Lite copia ${new Date().toISOString().slice(0, 10)}.json`;
+    const contenido = JSON.stringify({ app: "rondas", v: L.VERSION_DATOS, exportado: hoy(), unidades: datosUsuario.unidades, intercambio: L.paqueteIntercambio(datosUsuario.unidades, APP_VERSION, hoy()) }, null, 1);
+    const nombre = `Rondas de Seguridad copia ${new Date().toISOString().slice(0, 10)}.json`;
     const blob = new Blob([contenido], { type: "application/json" });
     const file = new File([blob], nombre, { type: "application/json" });
     if (esIOS() && navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -890,7 +890,7 @@
     const fr = new FileReader();
     fr.onload = () => {
       let s = null; try { s = L.sanearDatos(JSON.parse(fr.result), genId, hoy()); } catch (e) { /* */ }
-      if (!s) { toast("Ese archivo no es una copia de Rondas de Seguridad Lite.", 4000); return; }
+      if (!s) { toast("Ese archivo no es una copia de Rondas de Seguridad.", 4000); return; }
       // Nunca se importa nada con id de ejemplo
       s.unidades.forEach(x => { if (esIdEjemplo(x.id)) x.id = genId(); });
       const aplicar = modo => {
@@ -1166,12 +1166,12 @@
   setTema(document.documentElement.getAttribute("data-tema") || "claro");
   $("#btn-tema").addEventListener("click", () => {
     const t = document.documentElement.getAttribute("data-tema") === "oscuro" ? "claro" : "oscuro";
-    setTema(t); escribir("rondaslite-tema", t);
+    setTema(t); escribir("rondas-tema", t);
   });
-  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ev => { if (!leer("rondaslite-tema")) setTema(ev.matches ? "oscuro" : "claro"); });
+  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ev => { if (!leer("rondas-tema")) setTema(ev.matches ? "oscuro" : "claro"); });
 
   // ---------- Modales ----------
-  const KEY_BIENV = "rondaslite-bienvenida-vista";
+  const KEY_BIENV = "rondas-bienvenida-vista";
   const mb = $("#modal-bienvenida"), ma = $("#modal-acerca");
   const vista = leer(KEY_BIENV);
   if (!vista) mb.hidden = false;
@@ -1182,7 +1182,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") { ma.hidden = true; $("#modal-confirmar").hidden = true; } });
 
   // ---------- Versiones y novedades ----------
-  const KEY_VERSION = "rondaslite-version-vista";
+  const KEY_VERSION = "rondas-version-vista";
   const listaCambios = n => `<div class="version-item"><div class="version-cab"><b>${esc(n.titulo)}</b><span class="version-tag">v${esc(n.version)} · ${esc(n.fecha)}</span></div><ul>${n.cambios.map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>`;
   $("#historial-versiones").innerHTML = NOVEDADES.map(listaCambios).join("");
   $("#about-version").textContent = $("#footer-version").textContent = `Versión ${APP_VERSION}`;
@@ -1228,7 +1228,7 @@
   window.addEventListener("appinstalled", () => { const b = $("#btn-instalar"); if (b) b.hidden = true; });
   if (matchMedia("(display-mode: standalone)").matches || navigator.standalone) { const i = $("#instalar-bloque"); if (i) i.classList.add("instalada"); }
 
-  window.RondasLite = { generarPDF, datos: () => datos };   // solo para pruebas desde la consola
+  window.RondasSeguridad = { generarPDF, datos: () => datos };   // solo para pruebas desde la consola
 
   // ---------- Arranque ----------
   buildNav();

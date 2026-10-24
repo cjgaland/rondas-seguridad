@@ -1,4 +1,4 @@
-# Rondas de Seguridad Lite
+# Rondas de Seguridad
 
 Aplicación web (PWA) estática, sin dependencias y utilizable sin conexión, para que un profesional monte las **rondas de seguridad de su unidad** y las siga:
 

@@ -1,5 +1,5 @@
 // ============================================================
-//  logic.js — Lógica PURA (sin DOM) · Rondas de Seguridad Lite
+//  logic.js — Lógica PURA (sin DOM) · Rondas de Seguridad
 //  Modelo (unidad con su programa, cuestionario, rondas y acciones), banco de
 //  preguntas propio, cumplimiento, comprobación de acciones de la ronda
 //  anterior, puntos calientes, avisos didácticos por paso, textos propuestos,
@@ -665,7 +665,7 @@
     const T = (texto, estilo = "celda") => ({ texto: texto == null ? "" : String(texto), estilo });
     const N = x => x == null ? T("", "centro") : { numero: x, estilo: "centro" };
     const nom = nombreUnidad(u) || "Unidad";
-    const cab = (titulo, cols) => { const f = [[T(titulo, "titulo")], [T(nom + " · Exportado de la app Rondas de Seguridad Lite · " + fecha, "sub")], cols.map(x => T(x, "cab"))]; f[0][0].combinar = cols.length; f[1][0].combinar = cols.length; return f; };
+    const cab = (titulo, cols) => { const f = [[T(titulo, "titulo")], [T(nom + " · Exportado de la app Rondas de Seguridad · " + fecha, "sub")], cols.map(x => T(x, "cab"))]; f[0][0].combinar = cols.length; f[1][0].combinar = cols.length; return f; };
     const h1 = cab("Rondas", ["Fecha", "Hora", "Turno", "Estado", "Equipo", "Acompaña", "Sí", "No", "N/A", "Cumplimiento (%)", "Resueltos en el momento", "Acciones", "Informe enviado"]);
     rondasOrden(u).forEach(r => { const s = resultado(r); h1.push([T(fmtF(r.fecha)), T(r.hora), T(nombreTurno(r.turno)), T(ESTADOS_RONDA[estadoRonda(r)]), T(r.equipo), T(r.acompana), N(s.si), N(s.no), N(s.na), N(s.pct), N(s.resueltos), N(accionesDeRonda(u, r).filter(a => lleno(a.que)).length), T(fmtF(r.informe.fecha))]); });
     const m = matrizCalor(u, 99);
@@ -684,11 +684,11 @@
     ] };
   }
 
-  // ---------- Intercambio con las otras apps (formato rondaslite-rondas, versión 1) ----------
-  const FORMATO_INTERCAMBIO = "rondaslite-rondas", VERSION_INTERCAMBIO = 1;
+  // ---------- Intercambio con las otras apps (formato rondas-seguridad, versión 1) ----------
+  const FORMATO_INTERCAMBIO = "rondas-seguridad", VERSION_INTERCAMBIO = 1;
   function paqueteIntercambio(unidades, appVersion, fecha) {
     const hoy = String(fecha).slice(0, 10);
-    return { formato: FORMATO_INTERCAMBIO, version: VERSION_INTERCAMBIO, app: "rondaslite", appVersion, generado: fecha,
+    return { formato: FORMATO_INTERCAMBIO, version: VERSION_INTERCAMBIO, app: "rondas", appVersion, generado: fecha,
       unidades: unidades.map(u => ({ id: u.id, unidad: nombreUnidad(u), ambito: u.ambito || null, frecuencia: u.frecuencia || null,
         items: ordenItems(u.items.filter(it => lleno(it.texto))).map(x => ({ id: x.id, bloque: x.bloque || null, bloqueNombre: lleno(x.bloque) ? nombreBloque(x.bloque) : null, texto: x.texto, donde: x.donde || null, amfe: x.amfe || null })),
         rondas: rondasOrden(u).map(r => { const s = resultado(r); return { id: r.id, fecha: r.fecha || null, turno: r.turno || null, estado: estadoRonda(r), cumplimiento: s.pct, si: s.si, no: s.no, na: s.na, noCumplen: s.noCumplen.map(x => x.id) }; }),
@@ -756,7 +756,7 @@
   }
   function sanearDatos(o, genId, fecha) {
     if (!o || typeof o !== "object" || !Array.isArray(o.unidades)) return null;
-    if (o.app && o.app !== "rondaslite") return null;
+    if (o.app && o.app !== "rondas") return null;
     const unidades = o.unidades.slice(0, 100).map(x => sanearUnidad(x, genId, fecha)).filter(Boolean);
     unicos(unidades, genId);
     return { unidades };

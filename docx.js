@@ -1,5 +1,5 @@
 // ============================================================
-//  docx.js — Documentos Word (.docx) reales sin dependencias · Rondas de Seguridad Lite (copiado de DAFO, AMFE y Auditorías)
+//  docx.js — Documentos Word (.docx) reales sin dependencias · Rondas de Seguridad (copiado de DAFO, AMFE y Auditorías)
 //  Mismo enfoque que xlsx.js: OOXML escrito a mano y empaquetado en un ZIP
 //  sin compresión (usa Xlsx.zipStore). Convierte la lista de «bloques» que
 //  genera logic.js (documentoInforme, documentoResumen) en un .docx editable.
@@ -17,7 +17,7 @@
 
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]))
     .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
-  const COLOR = "7A1626";           // granate de Rondas Lite (el del capítulo 12 de la Guía)
+  const COLOR = "7A1626";           // granate de Rondas de Seguridad (el del capítulo 12 de la Guía)
   const A4 = { w: 11906, h: 16838, m: 1134 }; // twips (A4, márgenes de 2 cm)
 
   // Un texto con saltos de línea se convierte en runs separados por <w:br/>
@@ -112,7 +112,7 @@
 <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/>
 </Relationships>`;
     const core = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${esc(doc.titulo || "")}</dc:title><dc:creator>App Rondas de Seguridad Lite</dc:creator><dc:language>es-ES</dc:language></cp:coreProperties>`;
+<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${esc(doc.titulo || "")}</dc:title><dc:creator>App Rondas de Seguridad</dc:creator><dc:language>es-ES</dc:language></cp:coreProperties>`;
     return Z.zipStore([
       { name: "[Content_Types].xml", bytes: enc.encode(tipos) },
       { name: "_rels/.rels", bytes: enc.encode(rels) },
