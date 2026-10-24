@@ -1,0 +1,37 @@
+# CLAUDE.md — Rondas de Seguridad Lite
+
+> Documento común a todas las apps (lista, carpetas, identidad visual e intercambio de datos): `/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calidad/ECOSISTEMA.md`. Diseño y decisiones: `../Diseño/DISEÑO_RONDAS_LITE.md`.
+
+Responder siempre en español y en lenguaje claro (el autor no es programador).
+
+## 1. Descripción
+PWA estática (sin build, sin dependencias, sin CDN) para que un profesional **monte las rondas de seguridad de su unidad y las siga**: programa, cuestionario elegido de un banco, ronda a pie de cama, acciones con responsable y plazo, comprobación en la ronda siguiente y seguimiento. Versión reducida y local de «Gestión Rondas de Seguridad» (`EcosistemaSeguridad/Gestión Rondas de Seguridad/rondas-app`, Next.js + Prisma, gestor global para hospitales; **no se modifica**). Acompaña al capítulo 12 de la Guía (`Guía Calidad y Seguridad/Manuscrito/12-rondas.md`): mismos conceptos, mismo caso de Urgencias y el de la UGC de AP. **Subproyecto de Auditorías**: vive en `Auditorías/Rondas Lite/`, con su propio repositorio git en `Aplicación/`.
+
+Autoría idéntica a las demás apps (pie de index.html, «Acerca de», `informePie()` y README).
+
+## 2. Arquitectura
+- `index.html` — esqueleto, cabecera (logo: carpeta con ✓), nav, franja de ejemplo, modales (bienvenida, Acerca de con fuentes verificadas del cap. 12, novedades, confirmar), `#input-importar` y `#input-amfe`.
+- `styles.css` — el de DAFO con el **acento granate** del cap. 12 (la variable sigue llamándose `--cyan`: claro `#8b1a2b`, oscuro `#f4a3b4`, texto sobre acento `#3a0a14`, impreso `#7a1626`). Bloque final «Componentes propios»: insignias (`pct-b`, `est-b`, `turno-b`, `fz-b`), equipo, cuestionario y banco, calendario (`turno-pt`), acciones, seguimiento (gráfico SVG, `calor`), la ronda (`ri`, `seg--ri`, `marcador-fijo`, `seg--rev`).
+- `logic.js` — funciones PURAS (`window.Logica` / `module.exports`): catálogos (`AMBITOS`, `BLOQUES`, `DONDE`, `FRECUENCIAS`, `TURNOS`, `OBJETIVOS`, `PERFILES`, `ESTADOS_ACCION`, `REVISION`, `PREGUNTAS_ABIERTAS`), **`BANCO`** (73 preguntas propias: `id`, `b` bloque, `d` dónde, `a` ámbitos, `t` texto; ningún aviso de redacción), fábricas, `sincronizar` (una ronda planificada toma siempre el cuestionario vigente; empezada, se congela), `resultado` (sí / (sí + no); N/A fuera), `valorDeCuenta` («7 de 8» → no), acciones (`pendientesDe`, `revisar` ok/sigue/mal, `accionDeItem`, `sustituida`, `sigueAbierta`, `vencida`, `fuerzaMedida`), `revisarItem` (vago, corto, revisado sin cuándo, borrador, persona) y `datoPersonal`, avisos por paso (`avisosPrograma`, `avisosCuestionario`, `avisosCalendario`, `avisosRonda`, `avisosAcciones`, `avisosSeguimiento`), seguimiento (`evolucion`, `matrizCalor`, `puntosCalientes` —2 de las 3 últimas, o todas las de un turno—, `porTurno`, `resumenAcciones`), calendario (`siguienteRonda`, `proponerCalendario`, turno rotando M→T→N), textos propuestos, `PASOS`/`PASOS_RONDA`, `progreso`, `siguientePaso`, `leerFallos` (Traer de AMFE / Mapa de Riesgos), documentos (`documentoHoja`, `documentoInforme`, `documentoSeguimiento`), `hojasExcel`, intercambio, saneado (`ESQ` + `sanear`), `fusionar`, `renovarIds`.
+- `contenido.js` — solo datos: `TEMAS` (5), `GLOSARIO` (27), `TEST` (16; incluye las 5 del cap. 12), `EJERCICIOS` (`sirve`: la app debe reconocerlos igual; `momento`), `EJEMPLOS` (Urgencias `ej-urg`: 14 ítems ligados al AMFE, 9 rondas M/T/N de 2026 y 2 planificadas, 7 acciones —la de marzo, la luz y el celador del capítulo—, punto caliente nocturno; UGC de AP `ej-ugc`; minicasos `ej-mini-eterno`, `ej-mini-manana`, `ej-mini-sinrespuesta`).
+- `xlsx.js`, `docx.js` (color `7A1626`) — copiados de DAFO. `sw.js` network-first.
+- `app.js` — interfaz. Zonas que se refrescan sin perder el foco: `zona(nombre, fn)` registra la función y `refrescar()` las repinta. Enlaces: unidad `data-k`, ronda `data-rk`, miembros `data-m`, preguntas `data-it`, abiertas `data-ab`, respuestas `data-ri`, conversación `data-cv`, hallazgos `data-h`, acciones `data-ac` (todos con `data-f`).
+- `tests/logic.test.mjs` — `node tests/logic.test.mjs` (152 pruebas).
+
+Rutas: `#/` · `#/unidades` · `#/unidad/nueva` · `#/unidad/<id>/<1-5>` · `#/unidad/<id>/ronda/nueva` · `#/unidad/<id>/ronda/<rid>/<1-5>` · `?informe=1&doc=hoja|informe|seguimiento` · `#/ejemplos` · `#/aprende[/n]` · `#/prueba[/1-3|practica]` · `#/glosario`.
+
+Datos: `localStorage["rondaslite-datos"]` = `{ app: "rondaslite", v, ultimaCopia, unidades: [] }`. Unidad: `{ id, creado, modificado, unidad, ambito, objetivos[], objetivo, frecuencia, equipo[{id, perfil, papel}], circuito, responsable, items[{id, bloque, texto, donde, amfe, origen}], abiertas[], rondas[], acciones[], conclusiones, notas }`. Ronda: `{ id, fecha, hora, turno, equipo, acompana, items[{id, bloque, texto, donde, amfe, valor: ""|si|no|na, nota, resuelto, ok, de}], conversacion[{id, pregunta, respuesta}], hallazgos[{id, texto, resuelto}], revisadas{accionId: ok|sigue|mal}, cierre{bien, resumen}, cerrada, informe{fecha, destinatarios} }`. Acción: `{ id, rondaId, origen (item:|conv:|hallazgo:|accion:<id>), que, responsable, plazo, eleva, indicador, estado (pendiente|curso|hecha|comprobada|ineficaz|anulada), comprobada (id de ronda), nota }`. **Al añadir un campo**: fábrica + `ESQ`. Ejemplos en memoria (ids `ej-…`), nunca se guardan.
+
+### Intercambio (formato `rondaslite-rondas`, versión 1)
+En cada guardado, `localStorage["rondaslite-intercambio"]` (y la copia `.json`, clave `intercambio`) = `{ formato, version: 1, app: "rondaslite", appVersion, generado, unidades: [{ id, unidad, ambito, frecuencia, items[{id, bloque, bloqueNombre, texto, donde, amfe}], rondas[{id, fecha, turno, estado, cumplimiento, si, no, na, noCumplen[itemIds]}], puntosCalientes[{itemId, texto, bloque, por: repetido|turno, turno, fallos, evaluadas}], acciones[{id, rondaFecha, que, responsable, plazo, estado, eleva, indicador, vencida}] }] }`. Solo datos del usuario. Lee (solo lectura) `amfe-intercambio` y `mapariesgos-intercambio` o sus copias.
+
+## 3. Pruebas en el navegador
+Puerto **8772**: `cd "/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calidad/Auditorías/Rondas Lite/Aplicación" && python3 -m http.server 8772` y la vista previa `app-rondas-lite` de `../.claude/launch.json`. El navegador integrado no admite service workers. Revisar en escritorio, a 360 px (sin scroll horizontal) y en oscuro.
+
+## 4. Versiones, copias y publicación
+`APP_VERSION` y `NOVEDADES` al principio de `app.js`; mismos `?v=` en index.html; `CACHE_NAME` en sw.js. Claves: `rondaslite-datos`, `rondaslite-intercambio`, `rondaslite-tema`, `rondaslite-bienvenida-vista`, `rondaslite-version-vista`, `rondaslite-facil-abierto`.
+Copias: `bash ~/.claude/skills/app-copia_seguridad/scripts/copia_seguridad.sh --root "/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calidad/Auditorías/Rondas Lite" --name RondasLite --exclude .claude`.
+**Sin publicar.** Previsto: repositorio `cjgaland/rondas-lite` → https://cjgaland.github.io/rondas-lite/. Publicar solo cuando el autor lo pida; entonces, añadir el enlace en Auditorías y en las demás hermanas.
+
+## 5. Estado
+- **v2026.01 (2026-10-24)**: primera versión completa en local, 152 pruebas. Pendiente: probar en tableta e iPhone reales, publicar (con permiso), enlazarla desde Auditorías y las hermanas, «Traer de Rondas» en Auditorías / Mapa de Riesgos (puntos calientes), manual de usuario si se pide.
