@@ -31,7 +31,7 @@ Puerto **8772**: `cd "/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calida
 ## 4. Versiones, copias y publicación
 `APP_VERSION` y `NOVEDADES` al principio de `app.js`; mismos `?v=` en index.html; `CACHE_NAME` en sw.js. Claves: `rondas-datos`, `rondas-intercambio`, `rondas-tema`, `rondas-bienvenida-vista`, `rondas-version-vista`, `rondas-facil-abierto`.
 Copias: `bash ~/.claude/skills/app-copia_seguridad/scripts/copia_seguridad.sh --root "/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calidad/Auditorías/Rondas de Seguridad" --name RondasSeguridad --exclude .claude`.
-**Sin publicar.** Previsto: repositorio `cjgaland/rondas-seguridad` → https://cjgaland.github.io/rondas-seguridad/. Publicar solo cuando el autor lo pida; entonces, añadir el enlace en Auditorías y en las demás hermanas.
+**Publicada** el 2026-10-24 (v2026.01) con permiso del autor: repositorio público `cjgaland/rondas-seguridad`, GitHub Pages desde `main` (raíz) → https://cjgaland.github.io/rondas-seguridad/. Cada nueva publicación (push) solo cuando el autor lo pida. Pasos por versión: copia de seguridad; entrada en `NOVEDADES` + `APP_VERSION`; mismos `?v=` en index.html; subir `CACHE_NAME` en sw.js; tests; commit en español terminado en `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`; push. Aún no la enlazan Auditorías ni las demás hermanas (se hará en la sesión de cada una).
 
 ## 5. Estado
-- **v2026.01 (2026-10-24)**: primera versión completa en local, 152 pruebas. Pendiente: probar en tableta e iPhone reales, publicar (con permiso), enlazarla desde Auditorías y las hermanas, «Traer de Rondas» en Auditorías / Mapa de Riesgos (puntos calientes), manual de usuario si se pide.
+- **v2026.01 (2026-10-24)**: primera versión completa, 152 pruebas; publicada el mismo día. Pendiente: probar en tableta e iPhone reales, enlazarla desde Auditorías y las hermanas, «Traer de Rondas» en Auditorías / Mapa de Riesgos (puntos calientes), manual de usuario si se pide.
