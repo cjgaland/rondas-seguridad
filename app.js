@@ -15,8 +15,10 @@
   // ---------- Versión y novedades ----------
   // Al publicar cambios: añadir una entrada AL PRINCIPIO de NOVEDADES, poner su versión en los ?v= de index.html, en
   // APP_VERSION y subir CACHE_NAME en sw.js. Formato de versión: AAAA.NN.
-  const APP_VERSION = "2026.01";
+  const APP_VERSION = "2026.02";
   const NOVEDADES = [
+    { version: "2026.02", fecha: "Octubre 2026", titulo: "La copia sin conexión de las otras apps ya no se borra", cambios: [
+      "Arreglado un fallo: al actualizarse esta app se borraba la copia sin conexión de las demás apps del ecosistema (y al revés). Ahora cada app solo limpia la suya, así que todas siguen funcionando sin conexión."] },
     { version: "2026.01", fecha: "Octubre 2026", titulo: "Primera versión", cambios: [
       "Programa de rondas de tu unidad en cinco pasos: programa, cuestionario, rondas, acciones y seguimiento, con «Tu siguiente paso» en la portada.",
       "Banco de 73 preguntas propias por bloques y tipos de unidad, preguntas propias, preguntas abiertas para el equipo y «Traer de AMFE o de Mapa de Riesgos».",
