@@ -4,7 +4,7 @@
 //  Al cambiar cualquier archivo, incrementa CACHE_NAME.
 // ============================================================
 
-const CACHE_NAME = "rondas-v2";
+const CACHE_NAME = "rondas-v3";
 
 const ASSETS = [
   "./",

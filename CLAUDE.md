@@ -35,3 +35,4 @@ Copias: `bash ~/.claude/skills/app-copia_seguridad/scripts/copia_seguridad.sh --
 
 ## 5. Estado
 - **v2026.01 (2026-10-24)**: primera versión completa, 152 pruebas; publicada el mismo día. Pendiente: probar en tableta e iPhone reales, manual de usuario si se pide. Hecho el 2026-10-24 en las otras apps (publicado el 2026-10-25): enlaces desde las siete hermanas y «Traer de Rondas» en Auditorías y Mapa de Riesgos; «Traer de Rondas» en DAFO queda para más adelante.
+- **v2026.03 (2026-10-26)**: enlace a la nueva app hermana Lectura Crítica (`/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calidad/LecturaCritica/Aplicación/`, https://cjgaland.github.io/lectura-critica/) en la portada y en «Acerca de».
