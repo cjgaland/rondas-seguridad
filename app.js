@@ -17,10 +17,12 @@
   // APP_VERSION y subir CACHE_NAME en sw.js. Formato de versión: AAAA.NN.
   const APP_VERSION = "2026.03";
   const NOVEDADES = [
+    // [eco]
     { version: "2026.03", fecha: "Octubre 2026", titulo: "Nueva app hermana: Lectura Crítica", cambios: [
       "Enlace a la nueva app hermana Lectura Crítica en la portada y en «Acerca de»: lee críticamente un artículo paso a paso (plantillas de CASPe con preguntas propias, calculadoras y un veredicto con semáforo) antes de cambiar la práctica."] },
     { version: "2026.02", fecha: "Octubre 2026", titulo: "La copia sin conexión de las otras apps ya no se borra", cambios: [
       "Arreglado un fallo: al actualizarse esta app se borraba la copia sin conexión de las demás apps del ecosistema (y al revés). Ahora cada app solo limpia la suya, así que todas siguen funcionando sin conexión."] },
+    // [/eco]
     { version: "2026.01", fecha: "Octubre 2026", titulo: "Primera versión", cambios: [
       "Programa de rondas de tu unidad en cinco pasos: programa, cuestionario, rondas, acciones y seguimiento, con «Tu siguiente paso» en la portada.",
       "Banco de 73 preguntas propias por bloques y tipos de unidad, preguntas propias, preguntas abiertas para el equipo y «Traer de AMFE o de Mapa de Riesgos».",
@@ -193,6 +195,7 @@
         <a class="guide-card" href="#/aprende"><span class="guide-num">?</span><div><div class="guide-q">Aprende</div><div class="guide-a">${C.TEMAS.length} temas <b>explicados fácil</b>: qué es una ronda, el programa, el cuestionario, hacerla y el seguimiento.</div></div><span class="guide-go">›</span></a>
         <a class="guide-card" href="#/prueba"><span class="guide-num">✎</span><div><div class="guide-q">Ponte a prueba</div><div class="guide-a">${C.TEST.length} preguntas y <b>dos ejercicios</b>: ¿sirve este ítem? y ¿se resuelve en el momento?</div></div><span class="guide-go">›</span></a>
         <a class="guide-card" href="#/glosario"><span class="guide-num">A–Z</span><div><div class="guide-q">Glosario</div><div class="guide-a">${C.GLOSARIO.length} términos <b>en lenguaje llano</b>, con buscador.</div></div><span class="guide-go">›</span></a>
+        <!-- [eco] -->
         <a class="guide-card guide-card--hermana" href="${L.URL_AUD}" target="_blank" rel="noopener"><span class="guide-num">✓</span><div><div class="guide-q">Auditorías ↗</div><div class="guide-a">App hermana: si un punto caliente se repite, <b>mídelo con una auditoría</b> y llévalo a tu Plan Anual.</div></div><span class="guide-go">›</span></a>
         <a class="guide-card guide-card--hermana" href="${L.URL_MAPA}" target="_blank" rel="noopener"><span class="guide-num">◆</span><div><div class="guide-q">Mapa de Riesgos ↗</div><div class="guide-a">App hermana: los fallos de tu <b>mapa de riesgos</b> son la mejor guía para elegir las preguntas («Traer de Mapa de Riesgos»).</div></div><span class="guide-go">›</span></a>
         <a class="guide-card guide-card--hermana" href="${L.URL_AMFE}" target="_blank" rel="noopener"><span class="guide-num">!</span><div><div class="guide-q">AMFE ↗</div><div class="guide-a">App hermana: <b>qué puede fallar</b> en un proceso; sus fallos prioritarios se traen como preguntas.</div></div><span class="guide-go">›</span></a>
@@ -201,6 +204,7 @@
         <a class="guide-card guide-card--hermana" href="${L.URL_FLUJO}" target="_blank" rel="noopener"><span class="guide-num">→</span><div><div class="guide-q">Flujograma ↗</div><div class="guide-a">App hermana: <b>dibuja el proceso</b> con sus puntos críticos.</div></div><span class="guide-go">›</span></a>
         <a class="guide-card guide-card--hermana" href="${L.URL_TM}" target="_blank" rel="noopener"><span class="guide-num">n</span><div><div class="guide-q">Tamaño Muestral ↗</div><div class="guide-a">App hermana: <b>cuántos casos revisar</b> si un hallazgo pasa a una auditoría.</div></div><span class="guide-go">›</span></a>
         <a class="guide-card guide-card--hermana" href="${L.URL_LC}" target="_blank" rel="noopener"><span class="guide-num">LC</span><div><div class="guide-q">Lectura Crítica ↗</div><div class="guide-a">App hermana: <b>lee críticamente un artículo</b> para comprobar la evidencia de una práctica segura antes de llevarla al cuestionario.</div></div><span class="guide-go">›</span></a>
+        <!-- [/eco] -->
       </div>
       ${practica("<b>Protección de datos:</b> la ronda mira el sistema, no a las personas. No escribas nombres de pacientes ni de profesionales, ni números de historia clínica: describe al equipo por su cargo.")}`;
   }
@@ -437,14 +441,14 @@
       ${pt.length > 1 ? `<h2 class="sec-t">Por turno</h2><div class="turnos-res">${pt.map(x => `<div class="turno-res"><span>${turnoBadge(x.turno)} <span class="field-sub">${plural(x.rondas, "ronda", "rondas")}</span></span><span class="barra"><span class="barra-fill barra-fill--${L.nivelPct(x.pct)}" style="width:${x.pct || 0}%"></span></span><b>${x.pct == null ? "—" : x.pct + " %"}</b></div>`).join("")}</div>` : ""}
       <h2 class="sec-t">Puntos calientes</h2>
       ${pc.length ? pc.map(p => `<div class="card pc-card"><p><b>🔥 ${esc(p.texto)}</b></p><p class="field-sub">${esc(L.nombreBloque(p.bloque))} · ${esc(L.textoCaliente(p))}.</p>
-        <div class="toolbar no-print"><a class="btn btn--sm" href="${L.URL_MAPA}" target="_blank" rel="noopener">Llevar al Mapa de Riesgos ↗</a><a class="btn btn--sm" href="${L.URL_AUD}" target="_blank" rel="noopener">Proponer una auditoría ↗</a></div></div>`).join("") : `<p class="placeholder-box">Ningún ítem falla en dos de las últimas tres rondas ni en todas las de un mismo turno.</p>`}
+        <!--[eco]--><div class="toolbar no-print"><a class="btn btn--sm" href="${L.URL_MAPA}" target="_blank" rel="noopener">Llevar al Mapa de Riesgos ↗</a><a class="btn btn--sm" href="${L.URL_AUD}" target="_blank" rel="noopener">Proponer una auditoría ↗</a></div><!--[/eco]--></div>`).join("") : `<p class="placeholder-box">Ningún ítem falla en dos de las últimas tres rondas ni en todas las de un mismo turno.</p>`}
       <h2 class="sec-t">Ítem a ítem</h2>${calorHtml(u)}
       <h2 class="sec-t">Conclusiones</h2>
       <div class="card">${campo(u, "conclusiones", "", { area: true, rows: 4, ph: "Lo que dicen las rondas juntas y qué vais a hacer con ello", aria: "Conclusiones" })}${proponer("prop-concl")}</div>`
         : `<div class="placeholder-box"><p><b>Aún no hay rondas hechas.</b></p><p>Cuando terminéis la primera, aquí veréis la evolución, los resultados por turno y lo que falla una y otra vez.</p><div class="toolbar" style="justify-content:center"><a class="btn btn--primary" href="#/unidad/${u.id}/3">Ir a las rondas →</a></div></div>`}
       <h2 class="sec-t">Documentos</h2>
       <div class="toolbar no-print"><button class="btn btn--primary" data-act="doc" data-doc="seguimiento">Programa y seguimiento (Word / PDF)</button><button class="btn" data-act="excel">⬇ Excel</button><button class="btn" data-act="copia">⬇ Copia de seguridad</button></div>
-      <p class="field-sub">Los demás apps del ecosistema que usas en este navegador pueden leer el resumen de tus rondas (sin ejemplos), igual que esta lee tu AMFE o tu Mapa de Riesgos.</p>`;
+      <p class="field-sub"><!--[eco]-->Los demás apps del ecosistema que usas en este navegador pueden leer el resumen de tus rondas (sin ejemplos), igual que esta lee tu AMFE o tu Mapa de Riesgos.<!--[/eco]--><!--[ind]La copia de seguridad (.json) lleva el resumen de tus rondas (sin ejemplos) en un formato que otras herramientas pueden importar.[/ind]--></p>`;
   }
   const RENDER = { 1: paso1, 2: paso2, 3: paso3, 4: paso4, 5: paso5 };
 
@@ -936,10 +940,12 @@
   // ---------- Traer de AMFE o de Mapa de Riesgos ----------
   // Solo lectura: cada app escribe en sus claves. Se copian los fallos prioritarios como borradores.
   function traerDelNavegador() {
+    // [eco]
     for (const k of ["mapariesgos-intercambio", "amfe-intercambio"]) {
       const crudo = leer(k); if (!crudo) continue;
       try { const r = L.leerFallos(JSON.parse(crudo)); if (!r.error && r.amfes.length) return r; } catch (e) { /* */ }
     }
+    // [/eco]
     return null;
   }
 
@@ -1094,7 +1100,12 @@
       case "ab-add": u.abiertas.push(""); tocado(u); repintar(); return;
       case "ab-sug": u.abiertas.push(v); tocado(u); repintar(); return;
       case "ab-del": u.abiertas.splice(Number(b.dataset.i), 1); tocado(u); repintar(); return;
+      // [eco]
       case "traer-abrir": traerLista = traerDelNavegador(); if (!traerLista) { toast("En este navegador no hay datos de AMFE ni de Mapa de Riesgos. Carga su copia de seguridad (.json).", 4500); $("#input-amfe").click(); return; } repintar(); return;
+      // [/eco]
+      /* [ind]
+      case "traer-abrir": $("#input-amfe").click(); return;
+      [/ind] */
       case "traer-copia": $("#input-amfe").click(); return;
       case "traer-cerrar": traerLista = null; repintar(); return;
       case "traer-add": { const a = traerLista && traerLista.amfes.find(x => x.id === b.dataset.a), f = a && a.fallos.find(x => x.id === b.dataset.f); if (!f) return; u.items.push(L.itemDeFallo(genId, a, f)); tocado(u); repintar(); toast("Añadida como borrador: redáctala como algo que se vea y elige su bloque.", 3500); return; }

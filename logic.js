@@ -11,6 +11,7 @@
   "use strict";
 
   const VERSION_DATOS = 1;
+  // [eco]
   const URL_AUD = "https://cjgaland.github.io/auditorias/";
   const URL_IND = "https://cjgaland.github.io/indicadores-calidad/";
   const URL_TM = "https://cjgaland.github.io/tamano-muestral/";
@@ -19,6 +20,7 @@
   const URL_MAPA = "https://cjgaland.github.io/mapa-riesgos/";
   const URL_DAFO = "https://cjgaland.github.io/dafo/";
   const URL_LC = "https://cjgaland.github.io/lectura-critica/";
+  // [/eco]
 
   // ---------- Utilidades ----------
   const lleno = v => v != null && String(v).trim() !== "";
@@ -781,7 +783,10 @@
   }
 
   const API = {
-    VERSION_DATOS, URL_AUD, URL_IND, URL_TM, URL_AMFE, URL_FLUJO, URL_MAPA, URL_DAFO, URL_LC,
+    VERSION_DATOS,
+    // [eco]
+    URL_AUD, URL_IND, URL_TM, URL_AMFE, URL_FLUJO, URL_MAPA, URL_DAFO, URL_LC,
+    // [/eco]
     lleno, sinTildes, normal, corto, plural, esFecha, fmtF, pct, sumaDias, sumaMeses, diasEntre,
     AMBITOS, BLOQUES, ORDEN_BLOQUES, DONDE, FRECUENCIAS, TURNOS, ROTACION, OBJETIVOS, PERFILES, ESTADOS_ACCION, ABIERTA, REVISION, PREGUNTAS_ABIERTAS,
     BANCO, buscaBanco, bancoPara,
