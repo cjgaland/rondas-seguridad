@@ -20,6 +20,7 @@
   const URL_MAPA = "https://cjgaland.github.io/mapa-riesgos/";
   const URL_DAFO = "https://cjgaland.github.io/dafo/";
   const URL_LC = "https://cjgaland.github.io/lectura-critica/";
+  const URL_ACR = "https://cjgaland.github.io/acr-ishikawa/";
   // [/eco]
 
   // ---------- Utilidades ----------
@@ -785,7 +786,7 @@
   const API = {
     VERSION_DATOS,
     // [eco]
-    URL_AUD, URL_IND, URL_TM, URL_AMFE, URL_FLUJO, URL_MAPA, URL_DAFO, URL_LC,
+    URL_AUD, URL_IND, URL_TM, URL_AMFE, URL_FLUJO, URL_MAPA, URL_DAFO, URL_LC, URL_ACR,
     // [/eco]
     lleno, sinTildes, normal, corto, plural, esFecha, fmtF, pct, sumaDias, sumaMeses, diasEntre,
     AMBITOS, BLOQUES, ORDEN_BLOQUES, DONDE, FRECUENCIAS, TURNOS, ROTACION, OBJETIVOS, PERFILES, ESTADOS_ACCION, ABIERTA, REVISION, PREGUNTAS_ABIERTAS,

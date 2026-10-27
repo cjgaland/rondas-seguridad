@@ -44,4 +44,5 @@ Hay una versión de Rondas de Seguridad para regalar sola, sin enlaces al resto 
 ## 5. Estado
 - **v2026.01 (2026-10-24)**: primera versión completa, 152 pruebas; publicada el mismo día. Pendiente: probar en tableta e iPhone reales, manual de usuario si se pide. Hecho el 2026-10-24 en las otras apps (publicado el 2026-10-25): enlaces desde las siete hermanas y «Traer de Rondas» en Auditorías y Mapa de Riesgos; «Traer de Rondas» en DAFO queda para más adelante.
 - **v2026.03 (2026-10-26)**: enlace a la nueva app hermana Lectura Crítica (`/Users/Trabajo/Desktop/Calidad&Seguridad/Ecosistema Calidad/LecturaCritica/Aplicación/`, https://cjgaland.github.io/lectura-critica/) en la portada y en «Acerca de».
+- **v2026.04 (2026-10-27)**: enlace a la nueva app hermana ACR · Ishikawa (https://cjgaland.github.io/acr-ishikawa/, `L.URL_ACR`) en la portada y en «Acerca de», dentro de marcas `[eco]`.
 - **2026-10-26 (sin cambio de versión)**: marcas `[eco]`/`[ind]` para la edición independiente (apartado 4 bis). La app del ecosistema no cambia.
